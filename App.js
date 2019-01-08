@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar';
 import ListItem from './ListItem';
+import Modal from './Modal';
 
 class App extends Component {
     constructor(props){
@@ -19,16 +20,47 @@ class App extends Component {
                 { item: 'ice cream', quantity: 1, description: '', recipe: 'sundae' }, 
                 { item: 'banana', quantity: 1, description: '', recipe: 'sundae' }, 
                 { item: 'cereal', quantity: 2, description: '', recipe: false }
-            ] 
+            ],
+            showModal: false 
         };
         this.handleListItemClick = this.handleListItemClick.bind(this);
+        this.handleCartItemClick = this.handleCartItemClick.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
     }
+
+
+    toggleModal(){
+        this.setState({ showModal: !this.state.showModal });
+    }
+
     handleListItemClick(id){
-        
+        //add to cart
+
+        //1 - remove from listItem - by doing listItems[id]
+        const {listItems, cartItems} = this.state;
+        //avoid mutating state, instead return a new state
+        const newListItems = listItems.slice(0);
+        let cartItem = newListItems.splice(id,1);
+
+        const newCartItems = cartItem.concat(cartItems);
+
+        this.setState({listItems: newListItems, cartItems: newCartItems});
+    }
+
+    handleCartItemClick(id){
+        // add to list 
+        const { listItems, cartItems } = this.state;
+        //avoid mutating state, instead return a new state
+        const newCartItems = cartItems.slice(0);
+        let listItem = newCartItems.splice(id, 1);
+
+        const newListItems = listItem.concat(listItems);
+
+        this.setState({ listItems: newListItems, cartItems: newCartItems });
     }
 
     render(){
-        const { listItems, cartItems}  = this.state;
+        const { listItems, cartItems, showModal}  = this.state;
         const list = listItems.map((item, id) => {
             return (
                 <li key={id} >
@@ -40,7 +72,7 @@ class App extends Component {
         const cart = cartItems.map((item, id) => {
             return (
                 <li key={id} >
-                    <ListItem id={id} {...item} handleListItemClick={this.handleListItemClick} buttonMsg='Undo Selection' />
+                    <ListItem id={id} {...item} handleListItemClick={this.handleCartItemClick} buttonMsg='Undo Selection' />
                 </li>
             );
         });
@@ -60,6 +92,14 @@ class App extends Component {
                         <ul>
                             {list}
                         </ul>
+                        <button onClick={this.toggleModal}>modal</button>
+                        { 
+                            showModal ? (
+                                <Modal>
+                                    <h1>herro</h1>
+                                </Modal>
+                            ) : null
+                        }
                     </div>   
                     
                 </div>
