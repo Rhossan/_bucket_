@@ -21,16 +21,25 @@ class App extends Component {
                 { item: 'banana', quantity: 1, description: '', recipe: 'sundae' }, 
                 { item: 'cereal', quantity: 2, description: '', recipe: false }
             ],
-            showModal: false 
+            showModal: false,
+            newItem: '',
+            description: '',
+            quantity: '1'
         };
         this.handleListItemClick = this.handleListItemClick.bind(this);
         this.handleCartItemClick = this.handleCartItemClick.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
+        this.handleAdd = this.handleAdd.bind(this);
+        this.resetFormState = this.resetFormState.bind(this);
     }
 
 
     toggleModal(){
         this.setState({ showModal: !this.state.showModal });
+    }
+
+    update(field) {
+        return e => this.setState({ [field]: e.currentTarget.value });
     }
 
     handleListItemClick(id){
@@ -47,6 +56,7 @@ class App extends Component {
         this.setState({listItems: newListItems, cartItems: newCartItems});
     }
 
+
     handleCartItemClick(id){
         // add to list 
         const { listItems, cartItems } = this.state;
@@ -58,6 +68,23 @@ class App extends Component {
 
         this.setState({ listItems: newListItems, cartItems: newCartItems });
     }
+
+    handleAdd(){
+        const {newItem, quantity, description} = this.state;
+        //first add new item to cart
+        // and then a callback to resetformState
+    }
+
+    resetFormState(){
+        this.setState({
+            showModal: false,
+            newItem: '',
+            description: '',
+            quantity: '1'
+            }
+        );
+    }
+
 
     render(){
         const { listItems, cartItems, showModal}  = this.state;
@@ -86,17 +113,57 @@ class App extends Component {
                             {cart}
                         </ul>
                     </div>
-                    
+                    <div>Welcome</div>
                     <div>
                         <h1 className='shop-list-label'>Shopping List</h1> 
                         <ul>
                             {list}
                         </ul>
-                        <button onClick={this.toggleModal}>modal</button>
+                        <button onClick={this.toggleModal}>click me</button>
                         { 
                             showModal ? (
                                 <Modal>
-                                    <h1>herro</h1>
+                                    <div className='modal-content'>
+                                        <form onClick={this.handleAdd}>
+                                            <label>
+                                                Add New Item
+                                                <input
+                                                    onChange={this.update('newItem')}
+                                                    value={this.state.newItem}
+                                                    placeholder="Add New Item"
+                                                    required
+                                                />
+                                            </label>
+                                            <label>
+                                                Description
+                                                <textarea 
+                                                    rows='2'
+                                                    onChange={this.update('description')}
+                                                    value={this.state.description}
+                                                    placeholder="Description"
+                                                />
+                                            </label>
+                                            <label>
+                                                Quantity
+                                                <input
+                                                    type='number'
+                                                    step='1' min='1' max='99'
+                                                    onChange={this.update('quantity')}
+                                                    value={this.state.quantity}
+                                                />
+                                            </label>
+                                            <div>
+                                                <button type='submit'>
+                                                    OK
+                                                </button>
+                                                <button onClick={this.resetFormState}>
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </form>
+                                        
+
+                                    </div>
                                 </Modal>
                             ) : null
                         }

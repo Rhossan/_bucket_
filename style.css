@@ -67,4 +67,41 @@ ul {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
+
+#modal {
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#modal:empty {
+  display: none;
+}
+
+#modal > div {
+  background-color: white;
+  max-width: 500px;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.modal-content{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+input, textarea{
+  border-radius: 4px;
+  line-height: 1.5em;
+  width: 100%;
+}
 /* #00D294 */
