@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar';
 import ListItem from './ListItem';
-import Modal from './Modal';
+// import ModelContent from './ModalContent';
+import Loadable from 'react-loadable';
+
+const LoadableModal = Loadable({
+    loader: () => import('./ModalContent'),
+    loading: () => <div>loading..</div>
+});
 
 class App extends Component {
     constructor(props){
@@ -10,27 +16,29 @@ class App extends Component {
             users: ['reef', 'mike', 'sam'],
             currentUser: 'reef',
             cartItems: [
-                {item: 'kale', quantity: 2, description:'', recipe: false}, 
-                {item: 'eggs', quantity: 1, description: '', recipe: false},
-                {item: 'yogurt', quantity: 4, description: '', recipe: false},
+                {item: 'kale', quantity: 2, description:'', recipe: ''}, 
+                {item: 'eggs', quantity: 1, description: '', recipe: ''},
+                {item: 'yogurt', quantity: 4, description: '', recipe: ''},
             ],
             listItems: [
-                { item: 'coffee', quantity: 1, description: '', recipe: false },
-                { item: 'chicken breast', quantity: 2, description: 'get the one on sale!', recipe: 'mike' }, 
-                { item: 'ice cream', quantity: 1, description: '', recipe: 'sundae' }, 
-                { item: 'banana', quantity: 1, description: '', recipe: 'sundae' }, 
-                { item: 'cereal', quantity: 2, description: '', recipe: false }
+                { item: 'coffee', quantity: 1, description: '', recipe: '' },
+                { item: 'chicken breast', quantity: 2, description: 'get the one on sale!', recipe: 'mike:chicken' }, 
+                { item: 'ice cream', quantity: 1, description: '', recipe: 'reef:sundae' }, 
+                { item: 'banana', quantity: 1, description: '', recipe: 'reef:sundae' }, 
+                { item: 'cereal', quantity: 2, description: '', recipe: '' }
             ],
             showModal: false,
             newItem: '',
             description: '',
-            quantity: '1'
+            quantity: '1',
+            recipe: ''
         };
         this.handleListItemClick = this.handleListItemClick.bind(this);
         this.handleCartItemClick = this.handleCartItemClick.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.resetFormState = this.resetFormState.bind(this);
+        this.update = this.update.bind(this);
     }
 
 
@@ -70,9 +78,13 @@ class App extends Component {
     }
 
     handleAdd(){
-        const {newItem, quantity, description} = this.state;
+        const { newItem, quantity, description, listItems, currentUser, recipe} = this.state;
         //first add new item to cart
+        let newRecipe = recipe !== '' ? currentUser + ":" + recipe : '';
+        let item = [{item: newItem, quantity, description, recipe: newRecipe}];
+        const newListItems = item.concat(listItems);
         // and then a callback to resetformState
+        this.setState({listItems: newListItems}, this.resetFormState);
     }
 
     resetFormState(){
@@ -80,14 +92,15 @@ class App extends Component {
             showModal: false,
             newItem: '',
             description: '',
-            quantity: '1'
+            quantity: '1',
+            recipe: ''
             }
         );
     }
 
 
     render(){
-        const { listItems, cartItems, showModal}  = this.state;
+        const { listItems, cartItems, showModal, currentUser, users, newItem, description, quantity, recipe}  = this.state;
         const list = listItems.map((item, id) => {
             return (
                 <li key={id} >
@@ -105,7 +118,7 @@ class App extends Component {
         });
         return(
             <div>
-                <Navbar />
+                <Navbar currentUser={currentUser} users={users}/>
                 <div className='content-container'>
                     <div>
                         <h1>Shopping Cart</h1>
@@ -113,60 +126,22 @@ class App extends Component {
                             {cart}
                         </ul>
                     </div>
-                    <div>Welcome</div>
+                    <div className='center-content'>
+                        <div className='button-content'>
+                            <button onClick={this.toggleModal}>click me</button>
+                        </div>
+                    </div>
                     <div>
                         <h1 className='shop-list-label'>Shopping List</h1> 
                         <ul>
                             {list}
                         </ul>
-                        <button onClick={this.toggleModal}>click me</button>
-                        { 
-                            showModal ? (
-                                <Modal>
-                                    <div className='modal-content'>
-                                        <form onClick={this.handleAdd}>
-                                            <label>
-                                                Add New Item
-                                                <input
-                                                    onChange={this.update('newItem')}
-                                                    value={this.state.newItem}
-                                                    placeholder="Add New Item"
-                                                    required
-                                                />
-                                            </label>
-                                            <label>
-                                                Description
-                                                <textarea 
-                                                    rows='2'
-                                                    onChange={this.update('description')}
-                                                    value={this.state.description}
-                                                    placeholder="Description"
-                                                />
-                                            </label>
-                                            <label>
-                                                Quantity
-                                                <input
-                                                    type='number'
-                                                    step='1' min='1' max='99'
-                                                    onChange={this.update('quantity')}
-                                                    value={this.state.quantity}
-                                                />
-                                            </label>
-                                            <div>
-                                                <button type='submit'>
-                                                    OK
-                                                </button>
-                                                <button onClick={this.resetFormState}>
-                                                    Cancel
-                                                </button>
-                                            </div>
-                                        </form>
-                                        
-
-                                    </div>
-                                </Modal>
-                            ) : null
-                        }
+                       {
+                           showModal ? 
+                                <LoadableModal newItem={newItem} description={description} quantity={quantity} recipe={recipe} handleAdd={this.handleAdd} update={this.update} resetFormState={this.resetFormState}/> 
+                                :
+                                null
+                       }
                     </div>   
                     
                 </div>

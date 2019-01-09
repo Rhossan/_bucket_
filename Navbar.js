@@ -7,6 +7,7 @@ class Navbar extends Component{
     }
 
     render(){
+       const {currentUser, users} = this.props;
         return (
             <div>
                 <nav>
@@ -14,7 +15,7 @@ class Navbar extends Component{
                         <li>_basket_</li>
                         <div className="side-container">
                             <li>photo</li>
-                            <li>Reef</li>
+                            <li>{currentUser}</li>
                         </div>
                     </ul>
                 </nav>
