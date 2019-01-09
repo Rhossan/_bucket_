@@ -49,7 +49,7 @@ class ModelContent extends Component{
                             value={quantity}
                         />
                     </label>
-                    <div>
+                    <div className='modal-button-container'>
                         <button type='submit' onClick={this.props.handleAdd}>
                             OK
                         </button>

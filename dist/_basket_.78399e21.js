@@ -24482,7 +24482,15 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"Navbar.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"assets/basket.jpg":[function(require,module,exports) {
+module.exports = "/basket.c462dd8a.jpg";
+},{}],"assets/bullbasaur.png":[function(require,module,exports) {
+module.exports = "/bullbasaur.51c50f5c.png";
+},{}],"assets/snorlax.png":[function(require,module,exports) {
+module.exports = "/snorlax.631736ca.png";
+},{}],"assets/pikachu.png":[function(require,module,exports) {
+module.exports = "/pikachu.42047fb4.png";
+},{}],"Navbar.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24491,6 +24499,16 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
+
+var _basket = _interopRequireDefault(require("./assets/basket.jpg"));
+
+var _bullbasaur = _interopRequireDefault(require("./assets/bullbasaur.png"));
+
+var _snorlax = _interopRequireDefault(require("./assets/snorlax.png"));
+
+var _pikachu = _interopRequireDefault(require("./assets/pikachu.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -24504,13 +24522,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 var Navbar =
 /*#__PURE__*/
@@ -24524,10 +24542,16 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Navbar).call(this, props));
     _this.state = {};
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
   _createClass(Navbar, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.props.switchUser(e.target.value);
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
@@ -24535,9 +24559,17 @@ function (_Component) {
           users = _this$props.users;
       return _react.default.createElement("div", null, _react.default.createElement("nav", null, _react.default.createElement("ul", {
         className: "nav-container"
-      }, _react.default.createElement("li", null, "_basket_"), _react.default.createElement("div", {
+      }, _react.default.createElement("li", null, "_Basket_"), _react.default.createElement("div", {
         className: "side-container"
-      }, _react.default.createElement("li", null, "photo"), _react.default.createElement("li", null, currentUser)))));
+      }, _react.default.createElement("label", null, _react.default.createElement("select", {
+        value: currentUser,
+        onChange: this.handleChange
+      }, users.map(function (user) {
+        return _react.default.createElement("option", {
+          key: user,
+          value: user
+        }, user);
+      })))))));
     }
   }]);
 
@@ -24546,7 +24578,7 @@ function (_Component) {
 
 var _default = Navbar;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"ListItem.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./assets/basket.jpg":"assets/basket.jpg","./assets/bullbasaur.png":"assets/bullbasaur.png","./assets/snorlax.png":"assets/snorlax.png","./assets/pikachu.png":"assets/pikachu.png"}],"ListItem.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25771,8 +25803,8 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
     _this.state = {
-      users: ['reef', 'mike', 'sam'],
-      currentUser: 'reef',
+      users: ['tim', 'mike', 'alice'],
+      currentUser: 'tim',
       cartItems: [{
         item: 'kale',
         quantity: 2,
@@ -25803,12 +25835,12 @@ function (_Component) {
         item: 'ice cream',
         quantity: 1,
         description: '',
-        recipe: 'reef:sundae'
+        recipe: 'tim:sundae'
       }, {
         item: 'banana',
         quantity: 1,
         description: '',
-        recipe: 'reef:sundae'
+        recipe: 'tim:sundae'
       }, {
         item: 'cereal',
         quantity: 2,
@@ -25827,10 +25859,18 @@ function (_Component) {
     _this.handleAdd = _this.handleAdd.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.resetFormState = _this.resetFormState.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.update = _this.update.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.switchUser = _this.switchUser.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
   _createClass(App, [{
+    key: "switchUser",
+    value: function switchUser(user) {
+      this.setState({
+        currentUser: user
+      });
+    }
+  }, {
     key: "toggleModal",
     value: function toggleModal() {
       this.setState({
@@ -25951,7 +25991,8 @@ function (_Component) {
       });
       return _react.default.createElement("div", null, _react.default.createElement(_Navbar.default, {
         currentUser: currentUser,
-        users: users
+        users: users,
+        switchUser: this.switchUser
       }), _react.default.createElement("div", {
         className: "content-container"
       }, _react.default.createElement("div", null, _react.default.createElement("h1", null, "Shopping Cart"), _react.default.createElement("ul", null, cart)), _react.default.createElement("div", {
@@ -25959,8 +26000,9 @@ function (_Component) {
       }, _react.default.createElement("div", {
         className: "button-content"
       }, _react.default.createElement("button", {
+        className: "button-style",
         onClick: this.toggleModal
-      }, "click me"))), _react.default.createElement("div", null, _react.default.createElement("h1", {
+      }, "Add New Item"))), _react.default.createElement("div", null, _react.default.createElement("h1", {
         className: "shop-list-label"
       }, "Shopping List"), _react.default.createElement("ul", null, list), showModal ? _react.default.createElement(LoadableModal, {
         newItem: newItem,

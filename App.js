@@ -13,8 +13,8 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            users: ['reef', 'mike', 'sam'],
-            currentUser: 'reef',
+            users: ['tim', 'mike', 'alice'],
+            currentUser: 'tim',
             cartItems: [
                 {item: 'kale', quantity: 2, description:'', recipe: ''}, 
                 {item: 'eggs', quantity: 1, description: '', recipe: ''},
@@ -23,8 +23,8 @@ class App extends Component {
             listItems: [
                 { item: 'coffee', quantity: 1, description: '', recipe: '' },
                 { item: 'chicken breast', quantity: 2, description: 'get the one on sale!', recipe: 'mike:chicken' }, 
-                { item: 'ice cream', quantity: 1, description: '', recipe: 'reef:sundae' }, 
-                { item: 'banana', quantity: 1, description: '', recipe: 'reef:sundae' }, 
+                { item: 'ice cream', quantity: 1, description: '', recipe: 'tim:sundae' }, 
+                { item: 'banana', quantity: 1, description: '', recipe: 'tim:sundae' }, 
                 { item: 'cereal', quantity: 2, description: '', recipe: '' }
             ],
             showModal: false,
@@ -39,8 +39,12 @@ class App extends Component {
         this.handleAdd = this.handleAdd.bind(this);
         this.resetFormState = this.resetFormState.bind(this);
         this.update = this.update.bind(this);
+        this.switchUser = this.switchUser.bind(this);
     }
 
+    switchUser(user){
+        this.setState({currentUser: user});
+    }
 
     toggleModal(){
         this.setState({ showModal: !this.state.showModal });
@@ -118,7 +122,7 @@ class App extends Component {
         });
         return(
             <div>
-                <Navbar currentUser={currentUser} users={users}/>
+                <Navbar currentUser={currentUser} users={users} switchUser={this.switchUser}/>
                 <div className='content-container'>
                     <div>
                         <h1>Shopping Cart</h1>
@@ -128,7 +132,7 @@ class App extends Component {
                     </div>
                     <div className='center-content'>
                         <div className='button-content'>
-                            <button onClick={this.toggleModal}>click me</button>
+                            <button className='button-style' onClick={this.toggleModal}>Add New Item</button>
                         </div>
                     </div>
                     <div>
