@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar';
 import ListItem from './ListItem';
-// import ModelContent from './ModalContent';
 import Loadable from 'react-loadable';
 
 const LoadableModal = Loadable({
@@ -22,10 +21,12 @@ class App extends Component {
             ],
             listItems: [
                 { item: 'coffee', quantity: 1, description: '', recipe: '' },
-                { item: 'chicken breast', quantity: 2, description: 'get the one on sale!', recipe: 'mike:chicken' }, 
+                { item: 'chicken breast', quantity: 2, description: 'get the one on sale!', recipe: 'mike:alfredo-chicken' }, 
                 { item: 'ice cream', quantity: 1, description: '', recipe: 'tim:sundae' }, 
                 { item: 'banana', quantity: 1, description: '', recipe: 'tim:sundae' }, 
-                { item: 'cereal', quantity: 2, description: '', recipe: '' }
+                { item: 'strawberry', quantity: 4, description: '', recipe: 'tim:sundae' }, 
+                { item: 'cereal', quantity: 2, description: '', recipe: '' },
+                { item: 'pasta', quantity: 2, description: '', recipe: 'mike:alfredo-chicken' },
             ],
             showModal: false,
             newItem: '',

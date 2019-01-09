@@ -24559,9 +24559,7 @@ function (_Component) {
           users = _this$props.users;
       return _react.default.createElement("div", null, _react.default.createElement("nav", null, _react.default.createElement("ul", {
         className: "nav-container"
-      }, _react.default.createElement("li", null, "_Basket_"), _react.default.createElement("div", {
-        className: "side-container"
-      }, _react.default.createElement("label", null, _react.default.createElement("select", {
+      }, _react.default.createElement("li", null, "_Basket_"), _react.default.createElement("div", null, _react.default.createElement("label", null, _react.default.createElement("select", {
         value: currentUser,
         onChange: this.handleChange
       }, users.map(function (user) {
@@ -25830,7 +25828,7 @@ function (_Component) {
         item: 'chicken breast',
         quantity: 2,
         description: 'get the one on sale!',
-        recipe: 'mike:chicken'
+        recipe: 'mike:alfredo-chicken'
       }, {
         item: 'ice cream',
         quantity: 1,
@@ -25842,10 +25840,20 @@ function (_Component) {
         description: '',
         recipe: 'tim:sundae'
       }, {
+        item: 'strawberry',
+        quantity: 4,
+        description: '',
+        recipe: 'tim:sundae'
+      }, {
         item: 'cereal',
         quantity: 2,
         description: '',
         recipe: ''
+      }, {
+        item: 'pasta',
+        quantity: 2,
+        description: '',
+        recipe: 'mike:alfredo-chicken'
       }],
       showModal: false,
       newItem: '',
@@ -26064,7 +26072,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52020" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63768" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

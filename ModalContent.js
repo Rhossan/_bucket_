@@ -12,7 +12,7 @@ class ModelContent extends Component{
         return(
            
         <Modal>
-            <div className='modal-content'>
+            <div>
                 <form>
                     <label>
                         Add New Item

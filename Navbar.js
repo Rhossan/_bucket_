@@ -21,7 +21,7 @@ class Navbar extends Component{
                 <nav>
                     <ul className="nav-container">
                         <li>_Basket_</li>
-                        <div className="side-container">
+                        <div>
                             <label>
                                 <select value={currentUser} onChange={this.handleChange}>
                                     {users.map(user => (
