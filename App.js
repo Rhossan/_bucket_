@@ -12,7 +12,10 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            users: ['tim', 'mike', 'alice'],
+            users: [{ user: 'tim', img: 'Bullbasaur' }, 
+                    { user: 'mike', img: 'Snorlax' }, 
+                    { user: 'alice', img: 'Pikachu' }
+                ],
             currentUser: 'tim',
             cartItems: [
                 {item: 'kale', quantity: 2, description:'', recipe: ''}, 
@@ -109,7 +112,7 @@ class App extends Component {
         const list = listItems.map((item, id) => {
             return (
                 <li key={id} >
-                    <ListItem id={id} {...item} handleListItemClick={this.handleListItemClick} buttonMsg='Add to Cart' />
+                    <ListItem id={id} {...item} handleListItemClick={this.handleListItemClick} buttonMsg='Add to Basket' />
                 </li>
             );
         });
@@ -126,7 +129,7 @@ class App extends Component {
                 <Navbar currentUser={currentUser} users={users} switchUser={this.switchUser}/>
                 <div className='content-container'>
                     <div>
-                        <h1>Shopping Cart</h1>
+                        <h1>In the Basket</h1>
                         <ul>
                             {cart}
                         </ul>

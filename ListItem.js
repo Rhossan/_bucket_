@@ -14,7 +14,6 @@ class ListItem extends Component{
     }
     render(){
         const { item, quantity, description, buttonMsg, recipe } = this.props;
-        // let header = recipe === ? (quantity + ' x ' + item) : (quantity + ' x ' + item + '\t' + header);
         return(
             <div>
                 <div className='item-container'>
@@ -37,6 +36,3 @@ class ListItem extends Component{
 }
 
 export default ListItem;
-// make it a functional component? might be the right idea, so instead of List, we have listItem, it is stateless after all
-// also think about undo option later
-// { `${quantity} x ${item}` }

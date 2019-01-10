@@ -8,11 +8,15 @@ $untapt-green:  #00D294;
     body {
       margin: 0;
       padding: 0;
-     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       ul {
         list-style-type: none;
+      }
+      img {
+        max-height: 100%;
+      }
+      select {
+        width: 125%;
       }
     }
 }
@@ -51,8 +55,12 @@ button, .button-style {
         width: 150px;
         margin-right: 50px;
     }
+    .style-img{
+      width:40px;
+      height: 40px;
+    }
+  
 }
-
 .content-container{
   display: flex;
   justify-content: space-around;
@@ -123,27 +131,14 @@ button, .button-style {
     label{
         font-weight: bold;
     }
+    .modal-button-container{
+      display: flex;
+      justify-content: center;
+        & > button {
+        margin: 10px;  
+        padding: 15px 15px;
+        flex: 0 0 170px;
+      }
+    }
 }
 
-.modal-button-container{
-  display: flex;
-  justify-content: center;
-    & > button {
-    margin: 10px;  
-    padding: 15px 15px;
-    flex: 0 0 170px;
-  }
-}
-
-// .modal-button-container 
-
-li > img {
-  /* max-width:100%; */
-  max-height: 100%;
-}
-
-.style-img{
-  width:40px;
-  height: 40px;
-  color: #9100FF
-}

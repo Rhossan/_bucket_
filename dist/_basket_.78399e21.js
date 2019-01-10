@@ -24482,9 +24482,7 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"assets/basket.jpg":[function(require,module,exports) {
-module.exports = "/basket.c462dd8a.jpg";
-},{}],"assets/bullbasaur.png":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"assets/bullbasaur.png":[function(require,module,exports) {
 module.exports = "/bullbasaur.51c50f5c.png";
 },{}],"assets/snorlax.png":[function(require,module,exports) {
 module.exports = "/snorlax.631736ca.png";
@@ -24499,8 +24497,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
-
-var _basket = _interopRequireDefault(require("./assets/basket.jpg"));
 
 var _bullbasaur = _interopRequireDefault(require("./assets/bullbasaur.png"));
 
@@ -24541,7 +24537,6 @@ function (_Component) {
     _classCallCheck(this, Navbar);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Navbar).call(this, props));
-    _this.state = {};
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
@@ -24557,16 +24552,29 @@ function (_Component) {
       var _this$props = this.props,
           currentUser = _this$props.currentUser,
           users = _this$props.users;
+      var STRING_TO_COMPONENTS = {
+        'Bullbasaur': _bullbasaur.default,
+        'Snorlax': _snorlax.default,
+        'Pikachu': _pikachu.default
+      };
+      var profilePic = STRING_TO_COMPONENTS[users.find(function (u) {
+        return u.user === currentUser;
+      }).img];
       return _react.default.createElement("div", null, _react.default.createElement("nav", null, _react.default.createElement("ul", {
         className: "nav-container"
-      }, _react.default.createElement("li", null, "_Basket_"), _react.default.createElement("div", null, _react.default.createElement("label", null, _react.default.createElement("select", {
+      }, _react.default.createElement("li", null, "_Basket_"), _react.default.createElement("div", null, _react.default.createElement("li", {
+        className: "style-img"
+      }, _react.default.createElement("img", {
+        src: profilePic,
+        alt: "profile_pic"
+      })), _react.default.createElement("label", null, _react.default.createElement("select", {
         value: currentUser,
         onChange: this.handleChange
       }, users.map(function (user) {
         return _react.default.createElement("option", {
-          key: user,
-          value: user
-        }, user);
+          key: user.user,
+          value: user.user
+        }, user.user);
       })))))));
     }
   }]);
@@ -24576,7 +24584,7 @@ function (_Component) {
 
 var _default = Navbar;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./assets/basket.jpg":"assets/basket.jpg","./assets/bullbasaur.png":"assets/bullbasaur.png","./assets/snorlax.png":"assets/snorlax.png","./assets/pikachu.png":"assets/pikachu.png"}],"ListItem.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./assets/bullbasaur.png":"assets/bullbasaur.png","./assets/snorlax.png":"assets/snorlax.png","./assets/pikachu.png":"assets/pikachu.png"}],"ListItem.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24637,8 +24645,7 @@ function (_Component) {
           quantity = _this$props2.quantity,
           description = _this$props2.description,
           buttonMsg = _this$props2.buttonMsg,
-          recipe = _this$props2.recipe; // let header = recipe === ? (quantity + ' x ' + item) : (quantity + ' x ' + item + '\t' + header);
-
+          recipe = _this$props2.recipe;
       return _react.default.createElement("div", null, _react.default.createElement("div", {
         className: "item-container"
       }, _react.default.createElement("div", {
@@ -24658,10 +24665,7 @@ function (_Component) {
   return ListItem;
 }(_react.Component);
 
-var _default = ListItem; // make it a functional component? might be the right idea, so instead of List, we have listItem, it is stateless after all
-// also think about undo option later
-// { `${quantity} x ${item}` }
-
+var _default = ListItem;
 exports.default = _default;
 },{"react":"node_modules/react/index.js"}],"node_modules/prop-types/factoryWithTypeCheckers.js":[function(require,module,exports) {
 /**
@@ -25801,7 +25805,16 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
     _this.state = {
-      users: ['tim', 'mike', 'alice'],
+      users: [{
+        user: 'tim',
+        img: 'Bullbasaur'
+      }, {
+        user: 'mike',
+        img: 'Snorlax'
+      }, {
+        user: 'alice',
+        img: 'Pikachu'
+      }],
       currentUser: 'tim',
       cartItems: [{
         item: 'kale',
@@ -25984,7 +25997,7 @@ function (_Component) {
           id: id
         }, item, {
           handleListItemClick: _this3.handleListItemClick,
-          buttonMsg: "Add to Cart"
+          buttonMsg: "Add to Basket"
         })));
       });
       var cart = cartItems.map(function (item, id) {
@@ -26003,7 +26016,7 @@ function (_Component) {
         switchUser: this.switchUser
       }), _react.default.createElement("div", {
         className: "content-container"
-      }, _react.default.createElement("div", null, _react.default.createElement("h1", null, "Shopping Cart"), _react.default.createElement("ul", null, cart)), _react.default.createElement("div", {
+      }, _react.default.createElement("div", null, _react.default.createElement("h1", null, "In the Basket"), _react.default.createElement("ul", null, cart)), _react.default.createElement("div", {
         className: "center-content"
       }, _react.default.createElement("div", {
         className: "button-content"
@@ -26072,7 +26085,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63768" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56600" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
